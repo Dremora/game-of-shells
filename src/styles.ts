@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 export const LogoText = styled.h1`
   font-size: 40px;
@@ -24,6 +25,8 @@ export const StartButton = styled.button`
   font-size: 30px;
 `;
 
+export const Continue = motion.div;
+
 export const ContinueButton = styled.button`
   font-family: inherit;
   appearance: none;
@@ -47,6 +50,7 @@ export const Top = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
 export const Bottom = styled.div`
   flex-basis: 0;
   flex-shrink: 1;
@@ -65,7 +69,7 @@ export const Center = styled.div`
   flex-grow: 0;
 `;
 
-export const Container = styled.button`
+export const Container = styled(motion.button)`
   appearance: none;
   background: none;
   cursor: pointer;
@@ -76,10 +80,9 @@ export const Container = styled.button`
   background-color: red;
   margin: 10px;
   border-radius: 50%;
-  box-shadow: 0px 0px 0px 0 rgba(255, 255, 255, 0.75);
 `;
 
-export const BottomText = styled.div`
+export const Text = styled(motion.div)`
   font-size: 20px;
   color: white;
 `;

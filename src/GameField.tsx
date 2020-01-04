@@ -1,8 +1,11 @@
 import React, { useEffect, useReducer, useCallback } from "react";
-import { PoseGroup } from "react-pose";
+import { AnimatePresence } from "framer-motion";
 
 import { reducer as gameReducer } from "./gameState";
+import Container from "./Container";
 import {
+  Continue,
+  Text,
   LogoText,
   LevelText,
   Top,
@@ -13,7 +16,7 @@ import {
   Center
 } from "./styles";
 
-import { Continue, Container, BottomText } from "./animations";
+import { continue_, text } from "./animations";
 
 import { shuffleDuration } from "./constants";
 
@@ -29,7 +32,7 @@ const Game = () => {
         dispatch({
           type: state.shuffleCount > 0 ? "shuffle" : "allow_selection"
         });
-      }, shuffleDuration);
+      }, shuffleDuration * 1000);
       return () => clearTimeout(timeoutID);
     }
   }, [state]);
@@ -73,73 +76,57 @@ const Game = () => {
             Start
           </StartButton>
         )}
-        {state.gameState === "game_over" && <BottomText>GAME OVER</BottomText>}
+        {state.gameState === "game_over" && <Text>GAME OVER</Text>}
         {state.gameState !== "title_screen" && state.gameState !== "game_over" && (
           <Containers>
-            <PoseGroup animateOnMount>
-              {state.containerPositions.map((id, index) => {
-                let moveDirection = "";
-                if (state.gameState === "shuffling") {
-                  const previousIndex = state.previousContainerPositions.indexOf(
-                    id
-                  );
-
-                  if (index > previousIndex) {
-                    moveDirection = "up";
-                  } else if (index < previousIndex) {
-                    moveDirection = "down";
-                  }
-                }
-
-                const highlight =
-                  state.gameState === "turn_start" &&
-                  id === state.selectedBallID;
-
-                return (
-                  <Container
-                    pose={highlight && "highlight"}
-                    key={id}
-                    moveDirection={moveDirection}
-                    disabled={state.gameState !== "player_selection"}
-                    onClick={
-                      state.gameState === "player_selection"
-                        ? () => dispatch({ type: "select_ball", ballID: id })
-                        : null
-                    }
-                  />
-                );
-              })}
-            </PoseGroup>
+            {state.containerPositions.map((id, index) => (
+              <Container
+                onSelect={() => dispatch({ type: "select_ball", ballID: id })}
+                index={index}
+                id={id}
+                key={id}
+                state={state}
+              />
+            ))}
           </Containers>
         )}
       </Center>
       <Bottom>
         {state.gameState === "title_screen" && state.topScore > 0 && (
-          <BottomText key="selection_text">
+          <Text {...text} key="selection_text">
             Top level: {state.topScore}
-          </BottomText>
+          </Text>
         )}
         {state.gameState === "game_over" && (
-          <PoseGroup animateOnMount>
-            <Continue key="continue">
-              <ContinueButton onClick={() => dispatch({ type: "go_to_title" })}>
-                continue
-              </ContinueButton>
-            </Continue>
-          </PoseGroup>
+          <Continue
+            variants={continue_}
+            initial="hidden"
+            animate="visible"
+            key="continue"
+          >
+            <ContinueButton onClick={() => dispatch({ type: "go_to_title" })}>
+              continue
+            </ContinueButton>
+          </Continue>
         )}
         {state.gameState !== "title_screen" && state.gameState !== "game_over" && (
-          <PoseGroup>
+          <AnimatePresence exitBeforeEnter>
             {state.gameState === "player_selection" && (
-              <BottomText key="selection_text">Which one?</BottomText>
+              <Text {...text} positionTransition key="selection_text">
+                Which one?
+              </Text>
             )}
             {state.gameState === "correct_answer" && (
-              <BottomText key="answer">Correct!</BottomText>
+              <Text {...text} positionTransition key="answer">
+                Correct!
+              </Text>
             )}
             {state.gameState === "incorrect_answer" && (
-              <BottomText key="answer">Wrong!</BottomText>
+              <Text {...text} positionTransition key="answer">
+                Wrong!
+              </Text>
             )}
-          </PoseGroup>
+          </AnimatePresence>
         )}
       </Bottom>
     </>

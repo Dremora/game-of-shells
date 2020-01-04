@@ -1,1 +1,1 @@
-export const shuffleDuration = 500;
+export const shuffleDuration = 0.5;
