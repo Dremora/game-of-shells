@@ -62,6 +62,12 @@ const Container = ({ id, index, onSelect, state }) => {
           duration: shuffleDuration
         }
       }}
+      whileTap={
+        state.gameState === "player_selection" && {
+          backgroundColor: "#fff",
+          scale: 1.2
+        }
+      }
       onClick={state.gameState === "player_selection" ? () => onSelect() : null}
     />
   );
