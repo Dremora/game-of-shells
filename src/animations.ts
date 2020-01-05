@@ -16,6 +16,12 @@ export const text = {
   exit: { opacity: 0 }
 };
 
+export const level = {
+  initial: { x: "100%" },
+  animate: { x: 0 },
+  exit: { x: "-100%" }
+};
+
 export const textCorrect = {
   initial: { opacity: 0 },
   animate: { opacity: 1 },

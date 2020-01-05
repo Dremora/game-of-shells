@@ -7,9 +7,10 @@ export const LogoText = styled.h1`
   text-align: center;
 `;
 
-export const LevelText = styled.p`
+export const LevelText = styled(motion.p)`
   font-size: 20px;
   color: blue;
+  text-align: center;
 `;
 
 export const StartButton = styled(motion.button)`
@@ -46,7 +47,7 @@ export const Top = styled.div`
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
 `;
 

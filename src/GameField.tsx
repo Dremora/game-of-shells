@@ -16,7 +16,14 @@ import {
   Center
 } from "./styles";
 
-import { start, continue_, text, textCorrect, textWrong } from "./animations";
+import {
+  level,
+  start,
+  continue_,
+  text,
+  textCorrect,
+  textWrong
+} from "./animations";
 
 import { shuffleDuration } from "./constants";
 
@@ -65,10 +72,13 @@ const Game = () => {
         {state.gameState === "title_screen" && (
           <LogoText>Game of Shells</LogoText>
         )}
-        {state.gameState !== "title_screen" &&
-          state.gameState !== "game_over" && (
-            <LevelText>Level {state.level}</LevelText>
-          )}
+        {state.gameState !== "title_screen" && state.gameState !== "game_over" && (
+          <AnimatePresence exitBeforeEnter>
+            <LevelText {...level} key={state.level}>
+              Level {state.level}
+            </LevelText>
+          </AnimatePresence>
+        )}
       </Top>
       <Center>
         {state.gameState === "title_screen" && (
