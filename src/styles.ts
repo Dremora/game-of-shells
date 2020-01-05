@@ -4,14 +4,12 @@ import { motion } from "framer-motion";
 export const LogoText = styled.h1`
   font-size: 40px;
   color: red;
-  margin: 20px;
   text-align: center;
 `;
 
 export const LevelText = styled.p`
   font-size: 20px;
   color: blue;
-  margin: 20px;
 `;
 
 export const StartButton = styled(motion.button)`
@@ -49,6 +47,7 @@ export const Top = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 export const Bottom = styled.div`
