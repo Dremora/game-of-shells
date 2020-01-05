@@ -3,6 +3,7 @@ import { AnimatePresence } from "framer-motion";
 
 import { reducer as gameReducer } from "./gameState";
 import Container from "./Container";
+import ViewOnGithub from "./ViewOnGithub";
 import {
   Continue,
   Text,
@@ -68,6 +69,7 @@ const Game = () => {
 
   return (
     <>
+      {state.gameState === "title_screen" && <ViewOnGithub />}
       <Top>
         {state.gameState === "title_screen" && (
           <LogoText>Game of Shells</LogoText>
