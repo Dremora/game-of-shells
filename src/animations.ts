@@ -16,10 +16,46 @@ export const text = {
   exit: { opacity: 0 }
 };
 
+export const textCorrect = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: {
+    opacity: 0,
+    scale: 3,
+    transition: {
+      duration: 1
+    }
+  }
+};
+
+export const textWrong = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: [null, 1, 0],
+    scale: [null, 1, 3],
+    transition: {
+      duration: 1.5,
+      times: [0, 0.4, 1]
+    }
+  },
+  exit: {}
+};
+
+export const start = {
+  flashing: {
+    opacity: [1, 0.3],
+    transition: {
+      opacity: {
+        duration: 1.0,
+        yoyo: Infinity
+      }
+    }
+  }
+};
 export const continue_ = {
   hidden: { opacity: 0 },
   visible: {
-    opacity: [1, 0.5],
+    opacity: [1, 0.3],
     transition: {
       opacity: {
         delay: 1.5,

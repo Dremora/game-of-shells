@@ -14,7 +14,7 @@ export const LevelText = styled.p`
   margin: 20px;
 `;
 
-export const StartButton = styled.button`
+export const StartButton = styled(motion.button)`
   font-family: inherit;
   appearance: none;
   background: none;

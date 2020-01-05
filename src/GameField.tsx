@@ -16,7 +16,7 @@ import {
   Center
 } from "./styles";
 
-import { continue_, text } from "./animations";
+import { start, continue_, text, textCorrect, textWrong } from "./animations";
 
 import { shuffleDuration } from "./constants";
 
@@ -52,12 +52,12 @@ const Game = () => {
     }
 
     if (state.gameState === "incorrect_answer") {
-      const timeoutID = setTimeout(() => dispatch({ type: "game_over" }), 1000);
+      const timeoutID = setTimeout(() => dispatch({ type: "game_over" }), 2000);
       return () => clearTimeout(timeoutID);
     }
   }, [state.gameState]);
 
-  const start = useCallback(() => dispatch({ type: "start" }), []);
+  const startGame = useCallback(() => dispatch({ type: "start" }), []);
 
   return (
     <>
@@ -72,7 +72,12 @@ const Game = () => {
       </Top>
       <Center>
         {state.gameState === "title_screen" && (
-          <StartButton onClick={start} type="button">
+          <StartButton
+            onClick={startGame}
+            variants={start}
+            animate="flashing"
+            type="button"
+          >
             Start
           </StartButton>
         )}
@@ -117,12 +122,12 @@ const Game = () => {
               </Text>
             )}
             {state.gameState === "correct_answer" && (
-              <Text {...text} positionTransition key="answer">
+              <Text {...textCorrect} positionTransition key="correct_answer">
                 Correct!
               </Text>
             )}
             {state.gameState === "incorrect_answer" && (
-              <Text {...text} positionTransition key="answer">
+              <Text {...textWrong} positionTransition key="incorrect_answer">
                 Wrong!
               </Text>
             )}
