@@ -31,14 +31,7 @@ type State =
 
 type Action =
   | {
-      type:
-        | "start"
-        | "start_shuffling"
-        | "shuffle"
-        | "allow_selection"
-        | "next_turn"
-        | "game_over"
-        | "go_to_title";
+      type: "start" | "ui_ready" | "go_to_title";
     }
   | {
       type: "select_ball";
@@ -64,7 +57,7 @@ export const reducer = (state: State, action: Action): State => {
       break;
 
     case "turn_start": {
-      if (action.type === "start_shuffling") {
+      if (action.type === "ui_ready") {
         return {
           ...state,
           gameState: "shuffling",
@@ -76,18 +69,20 @@ export const reducer = (state: State, action: Action): State => {
     }
 
     case "shuffling": {
-      if (action.type === "shuffle") {
-        return {
-          ...state,
-          containerPositions: shuffle(state.containerPositions),
-          previousContainerPositions: state.containerPositions,
-          shuffleCount: state.shuffleCount - 1
-        };
-      } else if (action.type === "allow_selection") {
-        return {
-          ...state,
-          gameState: "player_selection"
-        };
+      if (action.type === "ui_ready") {
+        if (state.shuffleCount > 0) {
+          return {
+            ...state,
+            containerPositions: shuffle(state.containerPositions),
+            previousContainerPositions: state.containerPositions,
+            shuffleCount: state.shuffleCount - 1
+          };
+        } else {
+          return {
+            ...state,
+            gameState: "player_selection"
+          };
+        }
       }
       break;
     }
@@ -104,7 +99,7 @@ export const reducer = (state: State, action: Action): State => {
       }
     }
     case "correct_answer": {
-      if (action.type === "next_turn") {
+      if (action.type === "ui_ready") {
         return {
           ...state,
           level: state.level + 1,
@@ -115,7 +110,7 @@ export const reducer = (state: State, action: Action): State => {
     }
 
     case "incorrect_answer": {
-      if (action.type === "game_over") {
+      if (action.type === "ui_ready") {
         return {
           topScore: Math.max(state.level - 1, state.topScore),
           gameState: "game_over"

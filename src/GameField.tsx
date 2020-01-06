@@ -38,29 +38,24 @@ const Game = () => {
     if (state.gameState === "shuffling") {
       const timeoutID = setTimeout(() => {
         dispatch({
-          type: state.shuffleCount > 0 ? "shuffle" : "allow_selection"
+          type: "ui_ready"
         });
       }, shuffleDuration * 1000);
       return () => clearTimeout(timeoutID);
     }
-  }, [state]);
+  }, [state.gameState, state.gameState === "shuffling" && state.shuffleCount]);
 
   useEffect(() => {
-    if (state.gameState === "turn_start") {
-      const timeoutID = setTimeout(
-        () => dispatch({ type: "start_shuffling" }),
-        1000
-      );
-      return () => clearTimeout(timeoutID);
-    }
-
-    if (state.gameState === "correct_answer") {
-      const timeoutID = setTimeout(() => dispatch({ type: "next_turn" }), 1000);
+    if (
+      state.gameState === "turn_start" ||
+      state.gameState === "correct_answer"
+    ) {
+      const timeoutID = setTimeout(() => dispatch({ type: "ui_ready" }), 1000);
       return () => clearTimeout(timeoutID);
     }
 
     if (state.gameState === "incorrect_answer") {
-      const timeoutID = setTimeout(() => dispatch({ type: "game_over" }), 2000);
+      const timeoutID = setTimeout(() => dispatch({ type: "ui_ready" }), 2000);
       return () => clearTimeout(timeoutID);
     }
   }, [state.gameState]);
