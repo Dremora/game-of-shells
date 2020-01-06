@@ -1,6 +1,11 @@
 import React from "react";
 import { easeInSin, easeOutSin, easeCircle } from "./animations";
-import { shuffleDuration } from "./constants";
+import {
+  shuffleDuration,
+  containerHighlightDelay,
+  containerHighlightDuration,
+  containerHighlightAmount
+} from "./constants";
 import { Container as StyledContainer } from "./styles";
 import { useAnimation } from "framer-motion";
 import { useEffect } from "react";
@@ -55,10 +60,10 @@ const Container = ({ id, index, onSelect, state }) => {
       transition={{
         boxShadow: {
           type: "tween",
-          delay: 0.6,
-          duration: 0.3,
+          delay: containerHighlightDelay,
+          duration: containerHighlightDuration,
           from: "0px 0px 0px 0px rgba(255, 255, 255, 0.75)",
-          loop: 2
+          loop: containerHighlightAmount - 1
         },
         y: {
           ease: [easeOutSin, easeInSin],

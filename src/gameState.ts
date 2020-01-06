@@ -61,7 +61,8 @@ export const reducer = (state: State, action: Action): State => {
         return {
           ...state,
           gameState: "shuffling",
-          shuffleCount: Math.floor(Math.random() * 5 + 3),
+          shuffleCount: Math.floor(Math.random() * 5 + 3) - 1,
+          containerPositions: shuffle(state.containerPositions),
           previousContainerPositions: state.containerPositions
         };
       }

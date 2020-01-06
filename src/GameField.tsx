@@ -26,7 +26,12 @@ import {
   textWrong
 } from "./animations";
 
-import { shuffleDuration } from "./constants";
+import {
+  shuffleDuration,
+  containerHighlightDelay,
+  containerHighlightDuration,
+  containerHighlightAmount
+} from "./constants";
 
 const Game = () => {
   const [state, dispatch] = useReducer(gameReducer, {
@@ -46,10 +51,17 @@ const Game = () => {
   }, [state.gameState, state.gameState === "shuffling" && state.shuffleCount]);
 
   useEffect(() => {
-    if (
-      state.gameState === "turn_start" ||
-      state.gameState === "correct_answer"
-    ) {
+    if (state.gameState === "turn_start") {
+      const timeoutID = setTimeout(
+        () => dispatch({ type: "ui_ready" }),
+        (containerHighlightDelay +
+          containerHighlightDuration * containerHighlightAmount) *
+          1000
+      );
+      return () => clearTimeout(timeoutID);
+    }
+
+    if (state.gameState === "correct_answer") {
       const timeoutID = setTimeout(() => dispatch({ type: "ui_ready" }), 1000);
       return () => clearTimeout(timeoutID);
     }
