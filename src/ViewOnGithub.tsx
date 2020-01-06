@@ -6,6 +6,7 @@ The MIT License (MIT)
 Copyright (c) 2016 Tim Holman
 */
 
+import React from "react";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`

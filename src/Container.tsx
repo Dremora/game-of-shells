@@ -1,3 +1,4 @@
+import React from "react";
 import { easeInSin, easeOutSin, easeCircle } from "./animations";
 import { shuffleDuration } from "./constants";
 import { Container as StyledContainer } from "./styles";
@@ -39,6 +40,7 @@ const Container = ({ id, index, onSelect, state }) => {
 
   return (
     <StyledContainer
+      aria-label="Container"
       positionTransition={({ moveDirection }) => ({
         ease: easeCircle,
         duration: shuffleDuration
@@ -49,6 +51,7 @@ const Container = ({ id, index, onSelect, state }) => {
       animate={controls}
       key={id}
       disabled={state.gameState !== "player_selection"}
+      data-testid={id === state.selectedBallID && "selected-container"}
       transition={{
         boxShadow: {
           type: "tween",

@@ -1,0 +1,6 @@
+{
+  "extends": "..",
+  "compilerOptions": {
+    "types": ["cypress", "@types/testing-library__cypress"]
+  }
+}

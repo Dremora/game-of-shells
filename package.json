@@ -5,9 +5,12 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test:watch": "yarn jest --watch",
+    "bdd": "cypress open -P bdd"
   },
   "dependencies": {
+    "@types/testing-library__cypress": "5.0.1",
     "framer-motion": "1.7.0",
     "next": "9.1.6",
     "react": "16.12.0",
@@ -15,8 +18,14 @@
     "styled-components": "4.4.1"
   },
   "devDependencies": {
+    "@testing-library/cypress": "5.0.2",
+    "@testing-library/react": "9.4.0",
+    "@types/cypress": "1.1.3",
+    "@types/jest": "24.0.25",
     "@types/node": "13.1.2",
     "@types/react": "16.9.17",
+    "jest": "24.9.0",
+    "ts-jest": "24.2.0",
     "typescript": "3.7.4"
   }
 }
