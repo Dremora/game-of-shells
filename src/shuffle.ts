@@ -1,3 +1,8 @@
+/*
+Based on https://github.com/Daplie/knuth-shuffle/blob/master/index.js
+License: https://github.com/Daplie/knuth-shuffle/blob/master/LICENSE
+*/
+
 const shuffle = <T>(existingArray: T[]) => {
   const array = existingArray.slice();
   var currentIndex = array.length;
